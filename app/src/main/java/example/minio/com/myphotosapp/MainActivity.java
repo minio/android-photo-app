@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button refreshButton;
     ProgressDialog pDialog;
-    private static final String PHOTOSERVICE_URL = "http://play.minio.io:8080/MinioJavaRESTExample-0.0.1-SNAPSHOT/minio/photoservice/list";
+    private static final String PHOTOSERVICE_URL = "http://play.minio.io:8080/PhotoAPIService-0.0.1-SNAPSHOT/minio/photoservice/list";
     ImageView imageView;
 
     @Override
