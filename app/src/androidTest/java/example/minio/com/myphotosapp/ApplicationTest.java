@@ -1,4 +1,4 @@
-package example.aau.com.myphotosapp;
+package example.minio.com.myphotosapp;
 
 import android.app.Application;
 import android.test.ApplicationTestCase;

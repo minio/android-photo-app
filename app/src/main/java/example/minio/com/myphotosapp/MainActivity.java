@@ -41,6 +41,9 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Random;
 
+import example.minio.com.myphotosapp.R;
+
+
 public class MainActivity extends AppCompatActivity {
 
     Button refreshButton;
