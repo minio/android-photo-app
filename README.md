@@ -1,4 +1,4 @@
-# Android Photo App (https://gitter.im/minio/minio?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+# Android Photo App [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/minio/minio?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge) 
 
 ![minio_ANDROID1](https://github.com/minio/android-photo-app/blob/master/docs/screenshots/minio-ANDROID1.jpg?raw=true)
 
