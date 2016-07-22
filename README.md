@@ -1,6 +1,6 @@
 # Android Photo App
 
-![minio_ANDROID1](https://github.com/minio/android-photo-app/blob/master/docs/screenshots/minio-ANDROID1.png?raw=true)
+![minio_ANDROID1](https://github.com/minio/android-photo-app/blob/master/docs/screenshots/minio-ANDROID1.jpg?raw=true)
 
 This example will guide you through the code to build a simple Android Photo app. In this app, you will learn how an Android client can use the Photo API Service and load a random image. Full code is available here : https://github.com/minio/android-photo-app, released under Apache 2.0 License.
 
@@ -14,42 +14,48 @@ We will be building this app using Android Studio. This app will also consume th
 
 ## 2. SetUp  
 
+
  * Step 1 - Launch Android Studio -> New Project -> Create a new Android Project. Name your project AndroidPhotoApp.
 
-![minio_ANDROID2](https://github.com/minio/android-photo-app/blob/master/docs/screenshots/minio-ANDROID2.png?raw=true)
+
+![minio_ANDROID2](https://github.com/minio/android-photo-app/blob/master/docs/screenshots/minio-ANDROID2.jpg?raw=true)
 
 
  * Step 2 - Select Phone & Tablet. In this example we choose the latest stable Marshmallow Android 6.0 SDK to compile and build this app. 
  
-![minio_ANDROID3](https://github.com/minio/android-photo-app/blob/master/docs/screenshots/minio-ANDROID3.png?raw=true)
+![minio_ANDROID3](https://github.com/minio/android-photo-app/blob/master/docs/screenshots/minio-ANDROID3.jpg?raw=true)
  
 
  * Step 3 - Pick a Blank or a Basic Activity template and then click on Next.
 
-![minio_ANDROID4](https://github.com/minio/android-photo-app/blob/master/docs/screenshots/minio-ANDROID4.png?raw=true)
+![minio_ANDROID4](https://github.com/minio/android-photo-app/blob/master/docs/screenshots/minio-ANDROID4.jpg?raw=true)
 
 
  * Step 4 - Leave the defaults as is for the Activity & Layout Names. Click Finish.
 
-![minio_ANDROID5](https://github.com/minio/android-photo-app/blob/master/docs/screenshots/minio-ANDROID5.png?raw=true)
+![minio_ANDROID5](https://github.com/minio/android-photo-app/blob/master/docs/screenshots/minio-ANDROID5.jpg?raw=true)
 
    
  * Step 5 - You should see that gradle builds and generates a project where we can now begin to code up our AndroidPhotoApp.
 
-![minio_ANDROID6](https://github.com/minio/android-photo-app/blob/master/docs/screenshots/minio-ANDROID6.png?raw=true)
+![minio_ANDROID6](https://github.com/minio/android-photo-app/blob/master/docs/screenshots/minio-ANDROID6.jpg?raw=true)
 
 
 ## 3. App Layout
+
 Next let's remove the default Hello World TextView.  
+
  * Drag and drop a Button widget onto the phone's screen presented on content_main.xml.
  * Drag and drop a FrameLayout from the Design Palette below the button. 
  * Let's also drag and drop an imageView from the widgets inside the FrameLayout.
 
-![minio_ANDROID7](https://github.com/minio/android-photo-app/blob/master/docs/screenshots/minio-ANDROID7.png?raw=true)
+![minio_ANDROID7](https://github.com/minio/android-photo-app/blob/master/docs/screenshots/minio-ANDROID7.jpg?raw=true)
 
  
 Below is also the full XML version of our design from content_main.xml. 
+
 ```xml
+
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -88,11 +94,15 @@ Below is also the full XML version of our design from content_main.xml.
     </FrameLayout>
 
 </RelativeLayout>
+
 ```
+
 ## 4. MainActivity.java 
 
 We will use the Photo API Service we built earlier to service our AndroidPhotoApp. For the sake of simplicity, we will not use a ListView or a GridView to display a collection of photos. Instead we will randomly load one of the photos from the presigned URLs we receive from the PhotoAPI Service.
+
 ```java
+
 public class MainActivity extends AppCompatActivity {
 
     Button refreshButton;
@@ -122,10 +132,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
     }
 ```
+
 As is customary in fetching content for Android clients, we will employ an AsyncTask to fetch and process the urls in the background thread off from the main UI thread. 
+
 ```java
+
 private class LoadImage extends AsyncTask<String, String, Bitmap> {
 
         @Override
@@ -200,9 +214,13 @@ private class LoadImage extends AsyncTask<String, String, Bitmap> {
         }
 
     }
+
 ```
+
 We use a small helper function to convert the InputStream to String.
+
 ```java
+
 private static String convertInputStreamToString(InputStream inputStream) throws IOException{
   
         BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
@@ -217,11 +235,15 @@ private static String convertInputStreamToString(InputStream inputStream) throws
         return result;
 
     }
+
 ```
+
 ## 5. AndroidManifest.xml
 
 We need to add the <uses-permission android:name="android.permission.INTERNET" /> so that the app can fetch the images over the internet.
+
 ```xml
+
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="example.aau.com.myphotosapp">
@@ -245,7 +267,9 @@ We need to add the <uses-permission android:name="android.permission.INTERNET" /
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
+
 ```
+
 ## 6. Run the App
 
 * Launch the Android Emulator or connect an Android device to your computer. 
@@ -253,10 +277,11 @@ We need to add the <uses-permission android:name="android.permission.INTERNET" /
 * Press the green play button to run & deploy the app onto the emulator or a connected Android device. 
 * Click on the Load Random Image Button to load a different image.
 
-![minio_ANDROID8](https://github.com/minio/android-photo-app/blob/master/docs/screenshots/minio-ANDROID8.png?raw=true)
+![minio_ANDROID8](https://github.com/minio/android-photo-app/blob/master/docs/screenshots/minio-ANDROID8.jpg?raw=true)
 
 
 ## 7. Explore Further
+
 - [Photo API Service Example](https://docs.minio.io/docs/java-photo-api-service)
 - [Using `minio-java` client SDK with Minio Server](https://docs.minio.io/docs/java-client-quickstart-guide) 
 - [Minio Java Client SDK API Reference](https://docs.minio.io/docs/java-client-api-reference)
