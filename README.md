@@ -55,7 +55,6 @@ Next let's remove the default Hello World TextView.
 Below is also the full XML version of our design from content_main.xml. 
 
 ```xml
-
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -94,7 +93,6 @@ Below is also the full XML version of our design from content_main.xml.
     </FrameLayout>
 
 </RelativeLayout>
-
 ```
 
 ## 4. MainActivity.java 
@@ -102,7 +100,6 @@ Below is also the full XML version of our design from content_main.xml.
 We will use the Photo API Service we built earlier to service our AndroidPhotoApp. For the sake of simplicity, we will not use a ListView or a GridView to display a collection of photos. Instead we will randomly load one of the photos from the presigned URLs we receive from the PhotoAPI Service.
 
 ```java
-
 public class MainActivity extends AppCompatActivity {
 
     Button refreshButton;
@@ -139,7 +136,6 @@ public class MainActivity extends AppCompatActivity {
 As is customary in fetching content for Android clients, we will employ an AsyncTask to fetch and process the urls in the background thread off from the main UI thread. 
 
 ```java
-
 private class LoadImage extends AsyncTask<String, String, Bitmap> {
 
         @Override
@@ -214,13 +210,11 @@ private class LoadImage extends AsyncTask<String, String, Bitmap> {
         }
 
     }
-
 ```
 
 We use a small helper function to convert the InputStream to String.
 
 ```java
-
 private static String convertInputStreamToString(InputStream inputStream) throws IOException{
   
         BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
@@ -235,7 +229,6 @@ private static String convertInputStreamToString(InputStream inputStream) throws
         return result;
 
     }
-
 ```
 
 ## 5. AndroidManifest.xml
@@ -243,7 +236,6 @@ private static String convertInputStreamToString(InputStream inputStream) throws
 We need to add the <uses-permission android:name="android.permission.INTERNET" /> so that the app can fetch the images over the internet.
 
 ```xml
-
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="example.aau.com.myphotosapp">
@@ -267,7 +259,6 @@ We need to add the <uses-permission android:name="android.permission.INTERNET" /
     </application>
     <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
-
 ```
 
 ## 6. Run the App
