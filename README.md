@@ -23,7 +23,7 @@ We will be building this app using Android Studio. This app will also consume th
 
  * Step 2 - Select Phone & Tablet. In this example we choose the latest stable Marshmallow Android 6.0 SDK to compile and build this app. 
  
-![minio_ANDROID3](https://github.com/minio/android-photo-app/blob/master/docs/screenshots/minio-ANDROID3.jpg?raw=true)
+![minio_ANDROID3](https://github.com/minio/android-photo-app/blob/master/docs/screenshots/minio-ANDROID3.png?raw=true)
  
 
  * Step 3 - Pick a Blank or a Basic Activity template and then click on Next.
@@ -46,7 +46,7 @@ We will be building this app using Android Studio. This app will also consume th
 Next let's remove the default Hello World TextView.  
 
  * Drag and drop a Button widget onto the phone's screen presented on content_main.xml.
- * Drag and drop a FrameLayout from the Design Palette below the button. 
+ * Drag and drop a FrameLayout from Layouts (under palette).
  * Let's also drag and drop an imageView from the widgets inside the FrameLayout.
 
 ![minio_ANDROID7](https://github.com/minio/android-photo-app/blob/master/docs/screenshots/minio-ANDROID7.jpg?raw=true)
@@ -56,43 +56,48 @@ Below is also the full XML version of our design from content_main.xml.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context="example.aau.com.myphotosapp.MainActivity"
-    tools:showIn="@layout/activity_main"
-    android:background="#585454">
+    tools:context="examples.minio.com.androidphotoapp.MainActivity"
+    tools:showIn="@layout/activity_main">
 
     <Button
+        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Load Random Image"
-        android:id="@+id/button"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:text="Button"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="16dp"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/button">
+        android:layout_width="0dp"
+        android:layout_height="308dp"
+        tools:layout_constraintTop_creator="1"
+        tools:layout_constraintRight_creator="1"
+        android:layout_marginStart="36dp"
+        android:layout_marginEnd="36dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        tools:layout_constraintLeft_creator="1"
+        app:layout_constraintLeft_toLeftOf="parent">
 
         <ImageView
-            android:layout_width="364dp"
-            android:layout_height="369dp"
             android:id="@+id/imageView"
-            android:layout_gravity="left|top" />
-
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@android:color/background_light" />
     </FrameLayout>
 
-</RelativeLayout>
+</android.support.constraint.ConstraintLayout>
 ```
 
 ## 4. MainActivity.java 
@@ -100,6 +105,34 @@ Below is also the full XML version of our design from content_main.xml.
 We will use the Photo API Service we built earlier to service our AndroidPhotoApp. For the sake of simplicity, we will not use a ListView or a GridView to display a collection of photos. Instead we will randomly load one of the photos from the presigned URLs we receive from the PhotoAPI Service.
 
 ```java
+package examples.minio.com.androidphotoapp;
+
+import android.app.ProgressDialog;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
+import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Toast;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.Random;
+
 public class MainActivity extends AppCompatActivity {
 
     Button refreshButton;
@@ -116,20 +149,17 @@ public class MainActivity extends AppCompatActivity {
 
         //For the sake of simplicity we use an array of images. We recommend using ListViews or GridViews in your real applications.
         imageView = (ImageView) findViewById(R.id.imageView);
-      	
+
         refreshButton = (Button) findViewById(R.id.button);
-        
-        // Set up and Onclick Listener for the load random images button.
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-              
                 // An async task fetches all the latest photo URLs from the PhotoAPIService.
                 new LoadImage().execute(PHOTOSERVICE_URL);
             }
         });
-
-
     }
 ```
 
@@ -238,12 +268,13 @@ We need to add the <uses-permission android:name="android.permission.INTERNET" /
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="example.aau.com.myphotosapp">
+    package="examples.minio.com.androidphotoapp">
 
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity

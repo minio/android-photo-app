@@ -1,31 +1,33 @@
-/*
- * AndroidPhotoApp Example, (C) 2016 Minio, Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+/* 
+ * AndroidPhotoApp Example, (C) 2016 Minio, Inc.		
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");		
+ * you may not use this file except in compliance with the License.		
+ * You may obtain a copy of the License at		
+ *		
+ *     http://www.apache.org/licenses/LICENSE-2.0		
+ *		
+ * Unless required by applicable law or agreed to in writing, software		
+ * distributed under the License is distributed on an "AS IS" BASIS,		
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.		
+ * See the License for the specific language governing permissions and		
+ * limitations under the License.		
  */
 
-package example.minio.com.myphotosapp;
+
+package examples.minio.com.androidphotoapp;
 
 import android.app.ProgressDialog;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -41,9 +43,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.Random;
 
-import example.minio.com.myphotosapp.R;
-
-
 public class MainActivity extends AppCompatActivity {
 
     Button refreshButton;
@@ -58,20 +57,20 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        //For the sake of simplicity we use an array of images. We recommend using ListViews or GridViews in your real applications
+        //For the sake of simplicity we use an array of images. We recommend using ListViews or GridViews in your real applications.
         imageView = (ImageView) findViewById(R.id.imageView);
 
-
         refreshButton = (Button) findViewById(R.id.button);
+
+        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         refreshButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                // An async task fetches all the latest photo URLs from the PhotoAPIService.
                 new LoadImage().execute(PHOTOSERVICE_URL);
             }
         });
-
     }
-
 
     private class LoadImage extends AsyncTask<String, String, Bitmap> {
 
@@ -150,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
-    private static String convertInputStreamToString(InputStream inputStream) throws IOException{
+    private static String convertInputStreamToString(InputStream inputStream) throws IOException {
         BufferedReader bufferedReader = new BufferedReader( new InputStreamReader(inputStream));
         String line = "";
         String result = "";
