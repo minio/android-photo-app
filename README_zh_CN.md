@@ -7,7 +7,7 @@
 
 ## 1. 依赖
 
-我们将使用Android Studio进行开发。这个app也会访问我们发布的Photo API Service来随机获获取一张图片的presigned url。
+我们将使用Android Studio进行开发。这个app也会访问我们发布的Photo API Service来随机获取一张图片的presigned url。
 
 * Android Studio 
 * JDK 1.8
@@ -43,7 +43,7 @@
 
 ## 3. App Layout
 
-删除默认的Hello World TextView。  
+删除初始的Hello World TextView。  
 
  * 拖拽一个Button widget到content_main.xml。
  * 从Layouts（在palette下面）里拖拽一个FrameLayout。
